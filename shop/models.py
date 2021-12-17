@@ -34,5 +34,8 @@ class Item(models.Model):
     def __str__(self):
         return f'[{self.pk}]{self.item_name}' #목록 제목 에서 상품명 보여주기.
 
+    def get_absolute_url(self):
+        return f'/shop/{self.pk}'
+
 
 
