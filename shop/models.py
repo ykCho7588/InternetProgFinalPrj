@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Category(models.Model):
@@ -38,8 +38,10 @@ class Item(models.Model):
     item_size = models.CharField(max_length=256, verbose_name='사이즈')
     item_color = models.CharField(max_length=30, verbose_name='색상')
 
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) #author = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
-        return f'[{self.pk}]{self.item_name}' #목록 제목 에서 상품명 보여주기.
+        return f'[{self.pk}]{self.item_name} :: {self.author}' #목록 제목 에서 상품명 보여주기.
 
     def get_absolute_url(self):
         return f'/shop/{self.pk}/'

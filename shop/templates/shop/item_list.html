@@ -1,9 +1,9 @@
 {% extends 'shop/base.html '%}
 {% block main_area %}
-                <div class="col-lg-9">
+                <div class="col-lg-8">
                     <div class="col mb-5">
                         <!-- Header-->
-        <header class="bg-primary py-5">
+        <header class="bg-dark py-3">
             <div class="container px-4 px-lg-12 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Shoe-Mart</h1>
@@ -15,7 +15,7 @@
                             <!-- Product image-->
                             {% for i in item_list %}
                             {% if i.head_image %}
-                            <img class="card-img-top" src="{{ i.head_image.url }}" alt="{{i}}의 head image" />
+                            <img class="card-img-fluid" src="{{ i.head_image.url }}" alt="{{i}}의 head image" />
                             {% else %}
                             <img class="card-img-top" src="https://picsum.photos/seed/{{i.id}}/800/200" alt="random image"/>
                             {% endif %}
@@ -31,9 +31,13 @@
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{i.get_absolute_url}}">View more</a></div>
                             </div>
+                            <div class ="card-footer bg-primary">
+                 <div class="small text-white">by {{ i.author | upper }} <!--date 콜론(:)뒤에 공백이 있으면 안됨.-->
+                 </div>
+             </div>
                             {% endfor %}
                         </div>
                     </div>
