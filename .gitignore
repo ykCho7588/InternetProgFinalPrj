@@ -113,6 +113,7 @@ venv.bak/
 # PyCharm
 .idea/
 migrations/
+bootstrap/
 
 # Spyder project settings
 .spyderproject
