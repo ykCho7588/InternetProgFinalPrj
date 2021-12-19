@@ -5,17 +5,23 @@
 {% block main_area %}
 
         <!-- Product section-->
-        <!--<section class="py-5">-->
+
             <div class="container col-lg-9 px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">
+                        {% if user.is_authenticated and user == item.author %}
+                        <a href="/shop/update_item/{{item.pk}}/"
+                            class="btn btn-primary btn-sm">
+                            <i class="fas fa-pen"></i>
+                            Edit Item
+                        </a>
+                        {% endif %}
                         {% if item.head_image %}
                         <img class="img-fluid rounded" src="{{item.head_image.url}}" alt="{{item}}의 head image"/>
                         {% else %}
                         <img class="img-fluid rounded" src="https://picsum.photos/seed/{{item.id}}/800/200" alt="random image"/>
                         {% endif %}
                     </div>
-                    
                     <div class="col-md-6">
                         <div class="small mb-1">
                             {% if item.category %}
