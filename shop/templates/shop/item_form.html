@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'shop/base_full_width.html '%}
+{% block head_title %}Create Item - Shop{% endblock %}
+{% block main_area %}
+     <h1>Create New Item</h1>
+     <hr/>
+     <form method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+         <table>
+             {{form}}
+         </table>
+         <button type="submit" class="btn btn-primary float-right">Register</button>
+     </form>
+{% endblock %}

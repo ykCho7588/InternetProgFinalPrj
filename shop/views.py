@@ -1,8 +1,21 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Item, Category
 # Create your views here.
+
+class ItemCreate(LoginRequiredMixin, CreateView):
+    model = Item
+    fields = ['item_name', 'item_info', 'item_price', 'head_image', 'corp_name', 'category', 'item_size', 'item_color']
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(ItemCreate, self).form_valid(form)
+        else:
+            return redirect('/shop/')
+
 class ItemList(ListView):
     model = Item
     ordering = 'pk' # 게시된 순서대로 상품을 보여준다.
