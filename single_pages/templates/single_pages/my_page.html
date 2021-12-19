@@ -25,8 +25,10 @@
                 {% if users.username == request.user.username %}
                 <div class="card mt-2">
                     <div class="card-body">
-                        <h6><a class="text-decoratrion-none text-dark">{{users.username}}</a></h6>
-                        <span class="badge rounded-pill bg-light text-dark">{{users.email}}</span>
+                        <h6><a class="text-decoratrion-none text-dark">이름: {{users.username}}</a></h6>
+                        {% if users.email %}
+                        <span class="badge rounded-pill bg-light text-dark">이메일: {{users.email}}</span>
+                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
