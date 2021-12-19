@@ -60,7 +60,7 @@ class Item(models.Model):
 class Comment(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField(null=True) #텍스트의 길이는 제한하지 않음
+    content = models.TextField() #텍스트의 길이는 제한하지 않음
     created_at = models.DateTimeField(auto_now_add=True) #시간은 자동으로 추가
 
     def __str__(self):
