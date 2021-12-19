@@ -33,7 +33,7 @@ class Item(models.Model):
 
     head_image = models.ImageField(upload_to='shop/images/%Y/%m/%d/', blank=True, verbose_name='상품 이미지')
     corp_name = models.ForeignKey(Corp, null=True, on_delete=models.SET_NULL, verbose_name='제조사명')
-    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL, verbose_name='카테고리')
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='카테고리')
 
     item_size = models.CharField(max_length=256, verbose_name='사이즈')
     item_color = models.CharField(max_length=30, verbose_name='색상')

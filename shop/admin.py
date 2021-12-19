@@ -3,4 +3,6 @@ from .models import Item, Corp, Category
 # Register your models here.
 admin.site.register(Item)
 admin.site.register(Corp)
-admin.site.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('category',)}
+admin.site.register(Category, CategoryAdmin)

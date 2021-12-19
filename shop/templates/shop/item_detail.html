@@ -17,14 +17,21 @@
                     </div>
                     <!--<div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{item.head_image.url}}" alt="..." /></div>-->
                     <div class="col-md-6">
-                        <div class="small mb-2">{{item.author | upper}}이 등록</div>
+                        <div class="small mb-1">
+                            {% if item.category %}
+                            <span class="badge bg-info text-dark">{{item.category}}</span>
+                            {% else %}
+                            <span class="badge bg-info text-dark">미분류</span>
+                            {% endif %}
+                            <span class="badge bg-success text-white">{{item.author | upper}}이 등록</span>
+                        </div>
                         <h1 class="display-5 fw-bolder">{{ item.item_name }}</h1>
                         <div class="small mb-1">{{item.item_info}}</div>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through">{{ item.item_price}}원</span>
 <!--                            <span>$40.00</span>-->
                         </div>
-                        <p class="lead">사이즈: {{item.item_size}}</p>
+                        <p class="lead small">사이즈: {{item.item_size}}</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
