@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('single_pages.urls')),
     # path('accounts/', include('allauth.urls')),
-    # path('markdownx/', include('markdownx.urls'))
+    path('markdownx/', include('markdownx.urls'))
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #서버IP/media/ , 이미지(정적 파일 중 하나)

@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
+from markdown import markdown
+from markdownx.models import MarkdownxField
 
+# Create your models here.
 class Category(models.Model):
     category = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True) # 한글 허용
@@ -28,7 +30,7 @@ class Corp(models.Model):
 
 class Item(models.Model):
     item_name = models.CharField(max_length=256, verbose_name='상품명')
-    item_info = models.TextField(verbose_name='상품설명')
+    item_info = MarkdownxField(verbose_name='상품설명')
     item_price = models.IntegerField(verbose_name='상품가격')
 
     head_image = models.ImageField(upload_to='shop/images/%Y/%m/%d/', null=True, blank=True, verbose_name='상품 이미지')
@@ -46,5 +48,7 @@ class Item(models.Model):
     def get_absolute_url(self):
         return f'/shop/{self.pk}/'
 
+    def get_item_info_markdown(self):
+        return markdown(self.item_info)
 
 
