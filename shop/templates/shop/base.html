@@ -41,9 +41,9 @@
                             <div class="row">
                                     <ul class="list-unstyled col-sm-6 mb-0">
                                         {% for c in categories %}
-                                        <li><a href="#!">{{c}} ({{c.item_set.count}})</a></li>
+                                        <li><a href="http://127.0.0.1:8000/shop/category/{{c.slug}}">{{c}} ({{c.item_set.count}})</a></li>
                                         {% endfor %}
-                                        <li><a href="#!">미분류 ({{no_category_item_count}})</a></li>
+                                        <li><a href="http://127.0.0.1:8000/shop/category/no_category">미분류 ({{no_category_item_count}})</a></li>
                                     </ul>
                             </div>
                         </div>

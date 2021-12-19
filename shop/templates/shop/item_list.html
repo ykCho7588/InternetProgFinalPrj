@@ -7,12 +7,14 @@
             <div class="container px-4 px-lg-12 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Shoe-Mart</h1>
+                    <h4>{% if category %} <span class="badge rounded-pill bg-info text-dark">{{category}}</span> {% endif %}</h4>
                     <p class="lead fw-normal text-white-50 mb-0">With this Shoe-Mart, pick your comfy!</p>
+
                 </div>
             </div>
         </header>
                         {% if item_list.exists %}
-                            {% for i in item_list %}
+                        {% for i in item_list %}
                         <div class="card">
                             <!-- Product image-->
                             {% if i.head_image %}
