@@ -10,12 +10,12 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">
                         {% if item.head_image %}
-                        <img class="img-fluid rounded" src="{{item.head_image.url}}" alt="{{i}}의 head image" />
+                        <img class="img-fluid rounded" src="{{item.head_image.url}}" alt="{{item}}의 head image"/>
                         {% else %}
-                    <img class="img-fluid rounded" src="https://picsum.photos/seed/{{item.id}}/800/200" alt="random image"/>
-                    {% endif %}
+                        <img class="img-fluid rounded" src="https://picsum.photos/seed/{{item.id}}/800/200" alt="random image"/>
+                        {% endif %}
                     </div>
-                    <!--<div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{item.head_image.url}}" alt="..." /></div>-->
+                    
                     <div class="col-md-6">
                         <div class="small mb-1">
                             {% if item.category %}

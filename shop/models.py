@@ -31,7 +31,7 @@ class Item(models.Model):
     item_info = models.TextField(verbose_name='상품설명')
     item_price = models.IntegerField(verbose_name='상품가격')
 
-    head_image = models.ImageField(upload_to='shop/images/%Y/%m/%d/', blank=True, verbose_name='상품 이미지')
+    head_image = models.ImageField(upload_to='shop/images/%Y/%m/%d/', null=True, blank=True, verbose_name='상품 이미지')
     corp_name = models.ForeignKey(Corp, null=True, on_delete=models.SET_NULL, verbose_name='제조사명')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='카테고리')
 
