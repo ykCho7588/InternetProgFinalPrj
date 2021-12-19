@@ -1,4 +1,5 @@
 {% extends 'shop/base.html' %}
+{% load crispy_forms_tags %}
 {% block head_title %}
 {{ item.item_name }} - Shop
 {% endblock %}
@@ -19,7 +20,7 @@
                         {% if item.head_image %}
                         <img class="img-fluid rounded" src="{{item.head_image.url}}" alt="{{item}}의 head image"/>
                         {% else %}
-                        <img class="img-fluid rounded" src="https://picsum.photos/seed/{{item.id}}/800/200" alt="random image"/>
+                        <img class="img-fluid rounded" src="https://picsum.photos/seed/{{item.id}}/650/610" alt="random image"/>
                         {% endif %}
                     </div>
                     <div class="col-md-6">
@@ -52,7 +53,19 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                {% if user.is_authenticated %}<!--로그인 한 유저인 경우-->
+                                <form class="mb-4" id="comment-form" method="POST" action="{{item.get_absolute_url}}new_comment/">
+                                    {% csrf_token %}
+                                    <div class="form_group">
+                                        {{comment_form | crispy}}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                                {% else %}<!--로그인 하지 않은 유저인 경우-->
+                                <a role="button" class="btn btn-outline-dark" href="#"
+                                data-toggle="modal" data-target="#loginModal"
+                                >Log in and leave a comment</a>
+                                {% endif %}
 
                                 {% if item.comment_set.exists %}
                                 {% for comment in item.comment_set.all %}

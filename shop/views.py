@@ -1,9 +1,26 @@
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Item, Category
+from .forms import CommentForm
 # Create your views here.
+
+def new_comment(request, pk):
+    if request.user.is_authenticated:
+        item = get_object_or_404(Item, pk=pk)
+        if request.method == 'POST' :
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = item
+                comment.author = request.user
+                comment.save()
+                return redirect(comment.get_absolute_url())
+        else:
+            return redirect(item.get_absolute_url())
+    else:
+        raise PermissionDenied
 
 class ItemCreate(LoginRequiredMixin, CreateView):
     model = Item
@@ -49,6 +66,7 @@ class ItemDetail(DetailView):
         context = super(ItemDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
         context['no_category_item_count'] = Item.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm
         return context
 
 def category_page(request, slug):
