@@ -51,4 +51,28 @@ class Item(models.Model):
     def get_item_info_markdown(self):
         return markdown(self.item_info)
 
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists():
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else: #소셜 계정으로 로그인 하지 않은 경우
+            return 'https://doitdjango.com/avatar/id/405/5075a999a10beac9/svg/{self.author.email}/'
+
+class Comment(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE) #post가 지워지면 그것에 달렸던 comments들도 모두 지움
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField() #텍스트의 길이는 제한하지 않음
+    created_at = models.DateTimeField(auto_now_add=True) #시간은 자동으로 추가
+
+    def __str__(self):
+        return f'{self.author}::{self.content}'
+
+    def get_absolute_url(self):
+        return f'{self.item.get_absolute_url()}#comment-{self.pk}'
+
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists():
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else: #소셜 계정으로 로그인 하지 않은 경우
+            return 'https://doitdjango.com/avatar/id/405/5075a999a10beac9/svg/{self.author.email}/'
+
 
