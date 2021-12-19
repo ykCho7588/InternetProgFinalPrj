@@ -40,7 +40,7 @@ class Item(models.Model):
     item_size = models.CharField(max_length=256, verbose_name='사이즈')
     item_color = models.CharField(max_length=30, verbose_name='색상')
 
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) #author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'[{self.pk}]{self.item_name} :: {self.author}' #목록 제목 에서 상품명 보여주기.
@@ -54,13 +54,13 @@ class Item(models.Model):
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
-        else: #소셜 계정으로 로그인 하지 않은 경우
+        else:
             return 'https://doitdjango.com/avatar/id/405/5075a999a10beac9/svg/{self.author.email}/'
 
 class Comment(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE) #post가 지워지면 그것에 달렸던 comments들도 모두 지움
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField() #텍스트의 길이는 제한하지 않음
+    content = models.TextField(null=True) #텍스트의 길이는 제한하지 않음
     created_at = models.DateTimeField(auto_now_add=True) #시간은 자동으로 추가
 
     def __str__(self):
@@ -72,7 +72,7 @@ class Comment(models.Model):
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
-        else: #소셜 계정으로 로그인 하지 않은 경우
+        else:
             return 'https://doitdjango.com/avatar/id/405/5075a999a10beac9/svg/{self.author.email}/'
 
 

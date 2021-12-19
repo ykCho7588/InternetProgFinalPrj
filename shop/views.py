@@ -9,7 +9,7 @@ from .forms import CommentForm
 def new_comment(request, pk):
     if request.user.is_authenticated:
         item = get_object_or_404(Item, pk=pk)
-        if request.method == 'POST' :
+        if request.method == 'POST':
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
                 comment = comment_form.save(commit=False)
@@ -22,7 +22,7 @@ def new_comment(request, pk):
     else:
         raise PermissionDenied
 
-class ItemCreate(LoginRequiredMixin, CreateView):
+class ItemCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Item
     fields = ['item_name', 'item_info', 'item_price', 'head_image', 'corp_name', 'category', 'item_size', 'item_color']
 
@@ -52,6 +52,7 @@ class ItemUpdate(LoginRequiredMixin, UpdateView):
 class ItemList(ListView):
     model = Item
     ordering = 'pk' # 게시된 순서대로 상품을 보여준다.
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ItemList, self).get_context_data()
