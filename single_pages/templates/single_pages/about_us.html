@@ -1,18 +1,197 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>신발 쇼핑몰 - 회사 소개</title>
+    <title>About Us</title>
+    <link href="{% static 'shop/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen">
+    <link href="{% static 'single_pages/css/about_us.css' %}" rel="stylesheet" type="text/css" media="screen">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://kit.fontawesome.com/8dc413e15b.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<nav>
-    <a href="/">Home</a>
-    <a href="/shop/">Shop</a>
-</nav>
+{% include 'shop/navbar.html' %}
+<!--회사 소개-->
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>안녕하세요. Shoe-Mart 입니다.</h2>
+                <p>변함없는 품질로 고객님들께 기쁨을 전합니다.</p>
+            </div>
+            <div class="col-lg-4">
+                <img class="img-fluid" src="{% static 'single_pages/images/shoes_landing.jpg' %}">
+            </div>
+        </div>
+    </div>
+</section>
+<!--카테고리 별 통계-->
+<section class="margin-for-footer">
+    <div class="container mt-4">
+        <!--CATEGORY STATISTICS-->
+        <div class="row">
+            <div class="col-12">
+                <h1>INTRODUCTION</h1>
+            </div>
+        </div>
+        <!--카테고리별 통계 모달창(클릭 전) -->
+        <div class="row">
+            <div class="col-4">
+                <div class="card" data-toggle="modal" data-target="#portfolio1">
+                    <img class="card-img-top" src="{% static 'single_pages/images/statistics.png' %}">
+                    <div class="card-body">
+                        <h5 class="card-title">카테고리별 상품 개수</h5>
+                        <p>Number of products by category</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" data-toggle="modal" data-target="#portfolio3">
+                    <img class="card-img-top" src="{% static 'single_pages/images/genuine.jpg' %}">
+                    <div class="card-body">
+                        <h5 class="card-title">믿을 수 있는 정품 취급 사이트</h5>
+                        <p>Reliable Genuine Handling Site</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" data-toggle="modal" data-target="#portfolio2">
+                    <img class="card-img-top" src="{% static 'single_pages/images/shopping.jpg' %}">
+                    <div class="card-body">
+                        <h5 class="card-title">언제 어디서나, 여유롭게.</h5>
+                        <p>Whenever, Wherever, leisurely</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<h1>덕성여자대학교 신발 쇼핑몰 입니다.</h1>
-<h2> 대문 페이지 </h2>
-<h3> 아직 공사중입니다. </h3>
+<!-- Modal1 -->
+<div class="modal fade" id="portfolio1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">카테고리 별 상품 개수</h5><!-- id는 aria-labelledby와 같아야함. -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-8">
+                <!--통계 차트-->
+                <div class="container">
+    <div class="col-lg-12">
+    <div class ="card">
+      <div class="card-body">
+        <canvas id="myChart"></canvas>
+      </div>
+
+    </div>
+  </div>
+  <script>
+    data = {
+      labels: ['스니커즈','구두','슬리퍼','부츠','미분류'],
+      datasets : [{ label: '# of number of products', data: [5,5,5,5,2],
+      backgroundColor: ['rgba(255,99,132,0.2)', 'rgba(54,162,235,0.2)', 'rgba(255,206,86,0.2)', 'rgba(75,192,192,0.2)', 'rgba(153,102,255,0.2)'],
+      borderColor: ['rgba(255,99,132,1.0)', 'rgba(54,162,235,1.0)', 'rgba(255,206,86,1.0)', 'rgba(75,192,192,1.0)', 'rgba(153,102,255,1.0)'],
+      borderWidth:1
+    }]
+    }
+
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options:{
+        scales: {
+          yAxes: [{ticks: {beginAtZero: true}}]
+        }
+      }
+    });
+
+  </script></div>
+            </div>
+            <div class="col-lg-4">
+                <p>스니커즈: 5 </p>
+                <p>구두: 5</p>
+                <p>슬리퍼: 5</p>
+                <p>부츠: 5</p>
+                <p>미분류: 2</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal2 -->
+<div class="modal fade" id="portfolio2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">시간, 공간에 제약없는 쇼핑</h5><!-- id는 aria-labelledby와 같아야함. -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-7">
+                <img class="card-img-top" src="{% static 'single_pages/images/shopping.jpg' %}">
+            </div>
+            <div class="col-lg-5">
+                <p>언제, 어디서나 여유롭게 쇼핑하세요.</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal3 -->
+<div class="modal fade" id="portfolio3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">믿을 수 있는 정품 취급 사이트</h5><!-- id는 aria-labelledby와 같아야함. -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-7">
+                <img class="card-img-top" src="{% static 'single_pages/images/genuine.jpg' %}">
+            </div>
+            <div class="col-lg-5">
+                <p>100% 정품만 취급합니다.</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-bottom">
+    {% include 'shop/footer.html' %}
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+
 </body>
 </html>

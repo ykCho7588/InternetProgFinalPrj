@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>신발 쇼핑몰</title>
+    <title>My Page</title>
     <link href="{% static 'shop/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen">
     <link href="{% static 'single_pages/css/landing_page.css' %}" rel="stylesheet" type="text/css" media="screen">
     <script src="https://kit.fontawesome.com/8dc413e15b.js" crossorigin="anonymous"></script>
@@ -15,24 +15,22 @@
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-lg-6 text-light">
-                <h1 class="mt-5">Shoe-Mart</h1>
-                <h4>여러분 발의 영원한 단짝을 만나보세요.</h4>
+                <h1 class="mt-5">My Page</h1>
+                <h4>마이페이지</h4>
             </div>
             <div class="col-lg-5">
-                <h2 class="text-dark">Shop - Recent Item</h2>
-                {% for item in recent_items %}
+                <h2 class="text-dark">My Information</h2>
+                {% for users in user_list %}
+                {% if user.is_authenticated %}
+                {% if users.username == request.user.username %}
                 <div class="card mt-2">
                     <div class="card-body">
-                        {% if item.head_image %}
-                            <img class="card-img-top" id="item-{{item.pk}}" src="{{ item.head_image.url }}" alt="{{item}}의 head image" />
-                            {% else %}
-                            <img class="card-img-top" src="https://picsum.photos/seed/{{i.id}}/800/200" alt="random image"/>
-                            {% endif %}
-                        <h6><a href="{{item.get_absolute_url}}" class="text-decoratrion-none text-dark">{{item.item_name}}</a></h6>
-                        <span class="badge rounded-pill bg-light text-dark">{{item.item_price}}원</span>
-
+                        <h6><a class="text-decoratrion-none text-dark">{{users.username}}</a></h6>
+                        <span class="badge rounded-pill bg-light text-dark">{{users.email}}</span>
                     </div>
                 </div>
+                {% endif %}
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
