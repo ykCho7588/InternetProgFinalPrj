@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Item, Category
 from .forms import CommentForm
+from django.db.models import Q
 # Create your views here.
 
 def new_comment(request, pk):
@@ -13,7 +14,7 @@ def new_comment(request, pk):
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
                 comment = comment_form.save(commit=False)
-                comment.post = item
+                comment.item = item
                 comment.author = request.user
                 comment.save()
                 return redirect(comment.get_absolute_url())
@@ -68,6 +69,23 @@ class ItemDetail(DetailView):
         context['categories'] = Category.objects.all()
         context['no_category_item_count'] = Item.objects.filter(category=None).count()
         context['comment_form'] = CommentForm
+        return context
+
+class ItemSearch(ItemList) :
+    paginate_by = None
+
+    def get_queryset(self):
+        q = self.kwargs['q']
+        item_list = Item.objects.filter(
+            Q(item_name__contains=q)
+        ).distinct()
+        return item_list
+
+    def get_context_data(self, **kwargs):
+        context = super(ItemSearch, self).get_context_data()
+        q = self.kwargs['q']
+        context['search_info'] = f'Search : {q}({self.get_queryset().count()})'
+
         return context
 
 def category_page(request, slug):
